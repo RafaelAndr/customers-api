@@ -3,7 +3,8 @@ package br.com.coderbank.customerportal.service;
 import br.com.coderbank.customerportal.dto.request.ClientRequestDto;
 import br.com.coderbank.customerportal.dto.response.ClientResponseDto;
 import br.com.coderbank.customerportal.entity.Client;
-import br.com.coderbank.customerportal.entity.enuns.Status;
+import br.com.coderbank.customerportal.enuns.Status;
+import br.com.coderbank.customerportal.exception.ClientAlreadyExistsException;
 import br.com.coderbank.customerportal.repository.ClientRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class ClientService {
     private ClientRepository repository;
 
     public ClientResponseDto save(final ClientRequestDto clientRequestDto){
+        checkDuplicatedCpf(clientRequestDto);
         var clientEntity = new Client();
 
         BeanUtils.copyProperties(clientRequestDto, clientEntity);
@@ -31,5 +33,13 @@ public class ClientService {
                 clientEntity.getEditedByUser(),
                 clientEntity.getEditedDateAndTime()
         );
+    }
+
+    private void checkDuplicatedCpf(final ClientRequestDto clientRequestDto){
+        var clientCpf = clientRequestDto.cpf();
+
+        if (repository.existsByCpf(clientCpf)) {
+            throw new ClientAlreadyExistsException("Client with cpf " + clientCpf + " already exists");
+        }
     }
 }

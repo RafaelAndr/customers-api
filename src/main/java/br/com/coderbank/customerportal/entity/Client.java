@@ -1,6 +1,6 @@
 package br.com.coderbank.customerportal.entity;
 
-import br.com.coderbank.customerportal.entity.enuns.Status;
+import br.com.coderbank.customerportal.enuns.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
