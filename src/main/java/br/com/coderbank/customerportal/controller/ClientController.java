@@ -5,6 +5,8 @@ import br.com.coderbank.customerportal.dto.request.ClientRequestDto;
 import br.com.coderbank.customerportal.entity.Client;
 import br.com.coderbank.customerportal.repository.ClientRepository;
 import br.com.coderbank.customerportal.service.ClientService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/clients")
+@RequiredArgsConstructor
 public class ClientController {
 
-    @Autowired
-    private ClientService service;
+    private final ClientService service;
 
     @PostMapping
-    public ResponseEntity<ClientResponseDto> save(@RequestBody ClientRequestDto clientRequestDto){
+    public ResponseEntity<ClientResponseDto> save(@RequestBody @Valid ClientRequestDto clientRequestDto){
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(service.save(clientRequestDto));

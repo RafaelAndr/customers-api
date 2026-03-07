@@ -8,18 +8,18 @@ import br.com.coderbank.customerportal.exception.ClientAlreadyExistsException;
 import br.com.coderbank.customerportal.exception.DuplicatedEmailException;
 import br.com.coderbank.customerportal.mapper.ClientMapper;
 import br.com.coderbank.customerportal.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService {
 
-    @Autowired
-    private ClientRepository repository;
+    private final ClientRepository repository;
 
-    @Autowired
-    private ClientMapper mapper;
+    private final ClientMapper mapper;
 
     public ClientResponseDto save(final ClientRequestDto clientRequestDto){
 
