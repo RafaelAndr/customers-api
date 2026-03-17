@@ -1,12 +1,11 @@
 package br.com.coderbank.customerportal.dto.request;
 
-import jakarta.transaction.Status;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
-public record ClientRequestDto(
+public record CustomerRequestDto(
         @NotBlank(message = "required field")
         String name,
         @NotBlank(message = "required field")

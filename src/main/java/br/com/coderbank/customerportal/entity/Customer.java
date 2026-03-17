@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "CB_CLIENT")
-public class Client {
+@Table(name = "CB_CUSTOMER")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

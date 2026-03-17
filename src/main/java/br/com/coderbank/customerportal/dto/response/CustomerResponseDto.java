@@ -5,7 +5,7 @@ import br.com.coderbank.customerportal.enuns.Status;
 
 import java.util.UUID;
 
-public record ClientResponseDto(
+public record CustomerResponseDto(
         UUID id,
         Status status,
         String createdByUser,
