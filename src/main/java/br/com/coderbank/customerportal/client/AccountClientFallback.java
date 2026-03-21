@@ -24,6 +24,9 @@ public class AccountClientFallback implements AccountsClient {
         pendingAccount.setAccountStatus(AccountStatus.PENDING);
         pendingAccount.setLastTimeAttempt(LocalDateTime.now());
 
-        pendingAccountRepository.save(pendingAccount);
+        if (!pendingAccountRepository.existsByCustomerId(pendingAccount.getCustomerId())){
+            pendingAccountRepository.save(pendingAccount);
+        }
+
     }
 }
