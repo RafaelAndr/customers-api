@@ -5,15 +5,22 @@ import br.com.coderbank.customerportal.dto.request.CustomerRequestDto;
 import br.com.coderbank.customerportal.dto.response.CustomerListDto;
 import br.com.coderbank.customerportal.dto.response.CustomerResponseDto;
 import br.com.coderbank.customerportal.entity.Customer;
+import br.com.coderbank.customerportal.entity.PendingAccount;
+import br.com.coderbank.customerportal.enuns.AccountStatus;
 import br.com.coderbank.customerportal.enuns.Status;
 import br.com.coderbank.customerportal.exception.CustomerAlreadyExistsException;
 import br.com.coderbank.customerportal.exception.DuplicatedEmailException;
 import br.com.coderbank.customerportal.mapper.CustomerMapper;
 import br.com.coderbank.customerportal.repository.CustomerRepository;
+import br.com.coderbank.customerportal.repository.PendingAccountRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +29,7 @@ public class CustomerService {
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
     private final AccountIntegrationService accountIntegrationService;
+    private final PendingAccountRepository pendingAccountRepository;
 
     public CustomerResponseDto save(final CustomerRequestDto customerRequestDto){
 
@@ -60,5 +68,9 @@ public class CustomerService {
         return repository
                 .findAll(pageable)
                 .map(mapper::toPagedDto);
+    }
+
+    public List<PendingAccount> getPendingAccounts(){
+        return pendingAccountRepository.findByAccountStatus(AccountStatus.PENDING);
     }
 }
