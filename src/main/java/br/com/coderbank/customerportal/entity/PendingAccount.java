@@ -24,6 +24,7 @@ public class PendingAccount {
     private int retryCount;
 
     @Column(name = "account_status")
+    @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
     @Column(name = "last_time_attempt")
